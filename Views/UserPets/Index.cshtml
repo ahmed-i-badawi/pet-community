@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PetCommunity.Models.Pet>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="staff">
+                            <div class="img-wrap d-flex align-items-stretch">
+                                <div class="img align-self-stretch" style="background-image: url('../Uploads/@item.ImageUrl');"></div>
+                            </div>
+                            <div class="text pt-3 px-3 pb-4 text-center">
+                                <h3>@item.Name</h3>
+                                <h3>@item.BirthDate</h3>
+                                <h3>@item.Gender</h3>
+                                <h3>@item.Color</h3>
+                                <h3>@item.Notes</h3>
+                                <h3>@item.PetType?.Name</h3>
+                                <h3>@item.SpeciesPet?.Name</h3>
+                            </div>
+                            <div>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+</div>

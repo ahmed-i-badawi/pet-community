@@ -1,0 +1,31 @@
+﻿@*@model PetCommunity.Models.Post*@
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ftco-animate">
+                <p>
+                    <img src="/Uploads/@ViewBag.Post.ImageUrl" alt="" class="img-fluid" width="400" height="100">
+                </p>
+                <h2 class="mb-3">@ViewBag.Post.Date</h2>
+                @*<p>@ViewBag.Post.user.FirstName</p>*@
+                <p>@ViewBag.Post.Content</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<partial name="AllComments" />
+@*@Html.Partial("CreateComment", ViewBag.Post.Id)*@
+@*@Html.Partial("_MyPartial", new
+{
+    Property1 = "Value1",
+    Property2 = "Value2"
+}.ToViewDataDictionary())*@
+<partial name="CreateComment" />
+
+@*<partial name="CreateComment" />*@

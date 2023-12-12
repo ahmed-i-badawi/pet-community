@@ -1,0 +1,35 @@
+﻿@*@model IEnumerable<PetCommunity.Models.Comment>*@
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="container">
+    <h5 class="mb-5 alert-dismissable table table-info text-center">Numbers of comments : @ViewData["numberOfcomments"]</h5>
+</div>
+@foreach (var item in ViewBag.Post.Comments)
+{
+<div class="container">
+    <div class="pt-5 mt-5">
+
+        <ul class="comment-list">
+            <li class="comment table-info">
+                <div class="comment-body">
+                    <div class="text-nowrap bd-highlight" style="width: 8rem;">
+                        @item.Name :
+                    </div>
+                    <div class="text-nowrap bd-highlight" style="width: 8rem;">
+                        @item.Content
+
+                    </div>
+                    <div class="text-nowrap bd-highlight" style="width: 8rem;">
+                        @DateTime.Now
+                    </div>
+                    @*<h3 class="">@item.Name</h3>
+                        <p>@item.Content</p>
+                        <div class="meta">@DateTime.Now</div>*@
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+}

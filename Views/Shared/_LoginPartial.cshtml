@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (User.Identity.Name == "Admin@gmail.com")
+        {
+            <!--<li class="nav-item">-->
+            @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>*@
+            @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.Users.Where(e => e.Email == User.Identity.Name).FirstOrDefault().FirstName</a>*@
+            <!--</li>-->
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-controller="AdminDashboard" asp-action="Index" title="Manage">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "MainPage", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark" style="font-size:inherit; margin-top:24px">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hello @(UserManager.GetUserAsync(User)?.Result?.FirstName)</a>
+                <div class="dropdown-menu">
+                    @*<a class="dropdown-item" asp-controller="Connects" asp-action="Index">Connet with Others</a>*@
+                    @if (User.IsInRole("DOCTOR"))
+                    {
+                        <a class="dropdown-item" asp-controller="MyPosts" asp-action="Index">Post</a>
+                    }
+                    @*<a class="dropdown-item" asp-controller="HomeCourses" asp-action="Index">Take Courses</a>*@
+                    @if (!User.IsInRole("DOCTOR"))
+                    {
+                        <a class="dropdown-item" asp-controller="DocktorCreationRequests" asp-action="Index">Want to be a Doctor ?</a>
+                    }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/UserPets/index">My Pets</a>
+                    <a class="dropdown-item" href="/Identity/Account/Manage">My Profile</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "MainPage", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark" style="font-size:inherit; margin-top:24px">Logout</button>
+                </form>
+            </li>
+        }
+
+    }
+    else
+    {
+        if (!User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>*@
+
+    }
+</ul>

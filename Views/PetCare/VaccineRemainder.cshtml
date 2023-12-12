@@ -1,0 +1,219 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+<div>
+    <div class="modal-dialog mt-5">
+        <div class="modal-content" style="height:100%">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+                <div class="pr-n4" style="text-align:center;margin:0 auto">
+                    <h6 class="modal-title" style="text-align:center;direction:rtl;"> Pet Vaccination </h6>
+                </div>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- body -->
+                <div class="container">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+
+                            <select class="form-control  Type">
+                                @*<option hidden class="form-control"></option>*@
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <input class="form-control  VacName" placeholder="name of the vaccine" />
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <input class="form-control  PetName" placeholder="name of the Pet " />
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="PetImg" class="custom-file-upload form-control w-100" style="text-align:right">
+
+                                <i class="far fa-image" style="text-align:left;float:left;font-size:28px;"></i>   Upload Image For Your Pet
+                            </label>
+                            <input type="file" id="PetImg" style="text-align:right" />
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+
+                            <input type="text" onfocus="(this.type='date')" class="form-control  VacDate" placeholder=" Date of the vaccine " />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="justify-content:center">
+                    <div style="text-align:center;margin:0 auto">
+                        <button id="VacBtn" type="submit" class="btn btn-info px-5" data-dismiss="modal" style="text-align:center">Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    DateTime date = new DateTime();
+    <p>@date</p>
+}
+
+<script>
+
+
+
+
+        //=====================================================
+
+
+        // general variables
+        var Type = document.getElementsByClassName("Type");
+        var VacName = document.getElementsByClassName("VacName");
+        var PetName = document.getElementsByClassName("PetName");
+        var VacDate = document.getElementsByClassName("VacDate");
+        var VacBtn = document.getElementById("VacBtn");
+        var PetImg = document.getElementById("PetImg");
+        let PetImage;
+
+
+
+    var date = (VacDate[0].value).split("-");
+    var vacYear = Number(date[0]);
+    var vacMonth = Number(date[2]);
+    var vacDay = Number(date[1]);
+
+    var currDate = new Date().getFullYear();
+
+
+    let theFirstPetVaC = [
+                  {
+
+                   }
+            ]
+
+
+        // events ///////////////////////////////////////////
+        PetImg.addEventListener("change", uploadImage);
+
+
+        // /////////////////////////////////
+        VacBtn.onclick = function (e) {
+
+            e.preventDefault();
+            let allPetVaccines = JSON.parse(localStorage.getItem("PetVaccine")) || [] ;
+            if (vacYear > currDate) {
+                if (VacName[0].value && date) {
+                    let obj = {
+                        VDate: VacDate[0].value,
+                        VName: VacName[0].value,
+                        PetName: PetName[0].value,
+                        PetType: Type[1].value,
+                        imgUrl: PetImage,
+                    }
+
+                    let newVac = allPetVaccines ? [...allPetVaccines, obj] : [obj];
+                    localStorage.setItem("PetVaccine", JSON.stringify(newVac));
+                    alert("the Pet Vaccine saved successfully!");
+                    date = "";
+                    VacName[0].value = "",
+                        PetName[0].value = "",
+                        Type[0].value = "",
+                        PetImage = ""
+                } else {
+                    alert("enter data ...");
+                }
+            } else {
+                alert("enter valide date");
+            }
+        }
+
+        // uploadImage ////////////////////////////
+        function uploadImage() {
+            let file = this.files[0];
+
+            let types = ["image/jpeg", "image/png"];
+            if (types.indexOf(file.type) == -1) {
+                alert("the type of image not supported");
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                alert("the image is bigger than 2 MG");
+                return;
+            }
+            getImageBase64(file);
+            // PetImage=URL.createObjectURL(file);
+
+        }
+
+        function getImageBase64(file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = function () {
+                PetImage = reader.result;
+            }
+            reader.onerror = function () {
+                alert("error");
+            }
+
+        }
+
+        //========================== the end ============================
+
+
+
+
+
+    var All = document.getElementById("All");
+
+    let allPetV = JSON.parse(localStorage.getItem("PetVaccine"));
+
+    for (var i = 0; i < allPetV.length; i++) {
+        All.innerHTML +=  `
+
+                        <div class="col-md-4 d-flex ftco-animate">
+                            <div class="blog-entry align-self-stretch">
+                                <div  class="block-20 rounded" style="background-image: url('${allPetV[i].imgUrl}');">
+                                </div>
+                                <div class="text p-4">
+                                    <div class="meta mb-2">
+                                        <div><a href="#">${allPetV[i].VDate}</a></div>
+                                        <div><a href="#">${allPetV[i].PetType}</a></div>
+
+                                    </div>
+                                    <h3 class="heading"><span style="color:green">the  ${allPetV[i].PetName} </span> <br> should take the Vaccine :<span style="color:green"> ${allPetV[i].VName} </span> <br> in this Time <br> ${allPetV[i].VDate} <br> </h3>
+                                         <div class="text-right">
+                                            <button class="btn btn-danger"> <i class="fa fa-trash-o fa-lg" aria-hidden="true" style="font-size:20px"></i> </button>
+
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                             `
+
+    }
+
+
+</script>
+

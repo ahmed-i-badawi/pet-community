@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div >
+    <div class="modal-dialog mt-5">
+        <div class="modal-content" style="height:100%">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+                <div class="pr-n4" style="text-align:center;margin:0 auto">
+                    <h6 class="modal-title" style="text-align:center;direction:rtl;">Pet Pregnancy</h6>
+                </div>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- body -->
+                <div class="container">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                  
+                            <select class="form-control  Type">
+                                @*<option hidden class="form-control"></option>*@
+                                <option  value="Dog">Dog</option>
+                                <option  value="Cat">Cat</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+
+                            <input   type="text" onfocus="(this.type='date')" style="text-align:right" class="form-control  MatDate" placeholder=" Date of first mating " />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                           <p class="text-center" id="Result"></p>
+                        </div>
+
+                    </div>
+ 
+
+                </div>
+                <div class="modal-footer" style="justify-content:center">
+                    <div style="text-align:center;margin:0 auto">
+                        <button type="submit" class="btn btn-danger px-5" data-dismiss="modal" style="text-align:center">Close</button>
+                        <button  class="btn btn-info px-5"  style="text-align:center" id="CalcBtn" >Calculate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ 
+    DateTime date = new DateTime();
+    <p>@date</p>
+}
+<script>
+
+    var CalcBtn = document.getElementById("CalcBtn");
+    var Result = document.getElementById("Result");
+    var MatDate = document.getElementsByClassName("MatDate");
+    var Type = document.getElementsByClassName("Type");
+
+    CalcBtn.onclick = function () {
+  /*      Result.innerText += Type[0].value;*/
+
+        Result.innerText = "";
+        var date = (MatDate[0].value).split("-");
+
+        var matYear = Number(date[0]);
+        var matMonth = Number(date[2]);
+        var matDay = Number(date[1]);
+
+/*        Result.innerHTML += matDay + "/  " + matMonth + "/" + matYear+"<br>";*/
+            if ((matMonth + 2) > 12) {
+                matMonth = matMonth % 12;
+
+                Result.innerHTML += ` the ${Type[0].value} will bear in : <br>
+                              ${matDay}  /  ${matMonth + 2}  /  ${matYear+1} <br>
+                           `
+            } else {
+
+                Result.innerHTML += ` the ${Type[0].value} will bear in : <br>
+                              ${matDay}  /  ${matMonth + 2}  /  ${matYear} <br>
+                           `
+        }
+
+
+    };
+
+
+</script>

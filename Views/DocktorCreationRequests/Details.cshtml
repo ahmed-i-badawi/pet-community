@@ -1,0 +1,59 @@
+﻿@model PetCommunity.Models.DocktorCreationRequest
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    <h1>Request Details</h1>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkMobile)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkMobile)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MedicalSpeciality)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.MedicalSpeciality)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkAddress)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkAddress)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkPhone)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkPhone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkEmail)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkEmail)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id"></a>
+        <a class="btn btn-primary" asp-action="Index">
+            Back
+        </a>
+
+    </div>
+</div>

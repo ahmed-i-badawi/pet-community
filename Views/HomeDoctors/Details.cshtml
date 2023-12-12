@@ -1,0 +1,199 @@
+﻿
+@model PetCommunity.Models.Doctor
+
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    bool isUserDoctor = @UserManager.Users.Where(e => e.Email == User.Identity.Name).FirstOrDefault().Email == Model.User.Email;
+    var UserName = @UserManager.Users.Where(e => e.Email == User.Identity.Name).FirstOrDefault().FullName;
+
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>HomeDoctors <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">Doctor</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 ftco-animate">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img src="/Uploads/@Model.ImageUrl" alt="" class="img-fluid  det-doct-image">
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="mb-3" style="font-weight:bold; font-family:Tahoma;">Dr.@Model.User.FullName</h3>
+                        <h6>@Model.WorkEmail</h6>
+                        <h6>@Model.MedicalSpeciality</h6>
+                        <h6>@Model.WorkAddress</h6>
+                        <h6>Calls: 0 <i class="fa fa-phone" aria-hidden="true" style="color:cornflowerblue"></i></h6>
+                        <h6> 0 <i class="fa fa-money" aria-hidden="true" style="color:cornflowerblue"></i></h6>
+
+                            
+
+                            <br />
+
+                        <button class="btn btn-info" style="margin-top:20px">Have a Vedio Call</button>
+                        <p></p>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row border p-2" style="border-radius:5px;">
+
+                    <div class="col-12">
+                        <h5>Reviews:</h5>
+                        <ul style="list-style:none;" class="p-2" id="reviewsContainer">
+                            
+                        </ul>
+                    </div>
+                    @if (!isUserDoctor)
+                    {  
+                        <label>Give your rate on service (0-5):</label> <input type="text" hidden id="userName" value="@UserName"/>
+                        <input type="number" max="5" min="0" class="form-control" id="noStars"/>
+                        <label>Give your Review:</label>
+                        <textarea cols="10" rows="5" class="form-control" id="Review"></textarea>
+                        <button type="submit" id="btnReview" class="btn btn-info m-1" >Submit</button> 
+                    }
+
+
+                </div>
+
+            </div>
+            <div class="col-lg-5">
+
+
+                <div class="row">
+
+                    <div class="col-12  offset-1">
+                        @if (@UserManager.Users.Where(e => e.Email == User.Identity.Name).FirstOrDefault().Email == Model.User.Email)
+                        {
+
+                            <span>Type Your Message:</span> <br />
+                        }
+                        else
+                        {
+                            <h5 style="font-size:20px; font-weight:bold">
+                                Welcome
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    @UserManager.Users.Where(e => e.Email == User.Identity.Name).FirstOrDefault().FirstName
+                                }
+                            </h5>
+                            <span>Type Your Problem here and the doctor will reply:</span> <br />
+                        }
+
+                    </div>
+
+                    <div class="col-md-12 offset-1">
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <input type="text" id="txtUser" style="display:none;" value="@UserName" /> <br />
+                        }
+                        <span>Enter Your Message:</span> <br />
+
+                        <textarea rows="5" required cols="50" id="txtMessage" class="form-control"></textarea><br />
+
+                        <button type="submit" class="btn btn-info" id="btnSend">Send</button><br />
+                    </div>
+
+                    <div class="alert alert-info  col-md-12 offset-1" style=" height:400px; padding:10px;border-radius:5px;margin-top:20px;   overflow-x: hidden;  overflow-y:auto;">
+
+                        <div id="list"></div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+}
+else
+{
+<div class="container">
+    <div class="row text-center">
+
+        <h1 style="color:red; margin:100px;">Login First</h1>
+
+    </div>
+</div>
+
+}
+
+<script>
+ 
+
+    var noStars = Document.getElementByIdByQuerySelector("#noStars");
+    var Review = Document.getElementByIdByQuerySelector("#Review");
+    var btnReview = Document.getElementByIdByQuerySelector("#btnReview");
+    var userName = Document.getElementByIdByQuerySelector("#userName");
+
+        var today = new Date();
+        var rhours = today.getHours().toString();
+        var rminutes = today.getMinutes().toString();
+        var rseconds = today.getSeconds().toString();
+
+        var rtime = `${rhours} :${rminutes} :${rseconds}`
+
+
+        btnReview.onClick = function (e) {
+            e.preventDefault();
+            let allReviews = JSON.parse(localStorage.getItem("allReviews")) || [];
+
+            if (noStars[0].value != "" && Review[0].value != "") {
+                let obj = {
+                    rate: noStars[0].value,
+                    Review: Review[0].value,
+                    time: rtime,
+                    reviewer: userName[0].value,
+                }
+
+                let newobj = allReviews ? [...allReviews, obj] : [obj];
+                localStorage.setItem("allReviews", JSON.stringify(newobj));
+                alert("thank you for your rating!");
+                noStars[0].value = "";
+                Review: Review[0] = "";
+            }
+        }
+
+
+
+        var reviewsContainer = Document.getElementById("reviewsContainer");
+        var theReviews = JSON.parse(localStorage.getItem("allReviews"));
+        for (var i = 0; i < theReviews.length; i++) {
+            theReviews.innerHTML +=
+                `
+                            < li class="border p-2" style = "border-radius:5px;" >
+                                <span>${theReviews[i].time}</span> <span style="margin-left:50px">${theReviews[i].rate}<i class="fa fa-star" aria-hidden="true" style="color:yellow"></i></span>
+                                <br />
+                                <div>
+                                    <h6>${theReviews[i].reviewer}</h6>
+                                    <p>${theReviews[i].Review}</p>
+                                </div>
+                             </li >
+                               `
+        }
+
+    
+</script>

@@ -1,0 +1,22 @@
+﻿body {
+}
+
+
+.userNavBar{
+    color:white;
+    font-family:Tahoma;
+    font-size:18px;
+}
+.userNavBar a{
+    color:#00ff90;
+
+}
+.userNavBar a:hover{
+    background:#f8f8f8;
+    color:green;
+}
+
+.det-doct-image{
+    height: 350px;
+    border-radius: 5px;
+}

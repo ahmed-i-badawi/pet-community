@@ -1,0 +1,63 @@
+﻿@model PetCommunity.Models.DocktorCreationRequest
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    <h1>Delete Request</h1>
+
+    <h3>Are you sure you want to delete Your Request?</h3>
+    <div>
+
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkMobile)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkMobile)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MedicalSpeciality)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.MedicalSpeciality)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkAddress)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkAddress)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkPhone)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkPhone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkEmail)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.WorkEmail)
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a class="btn btn-primary" asp-action="Index">
+                Back
+            </a>
+        </form>
+    </div>
+</div>

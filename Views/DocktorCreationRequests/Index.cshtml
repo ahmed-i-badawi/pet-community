@@ -1,0 +1,156 @@
+﻿@model IEnumerable<PetCommunity.Models.DocktorCreationRequest>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<br />
+<br />
+<div class="container">
+
+
+    <div class="card border-success mb-3">
+        <div class="card-header">Your Requests to be a doctor</div>
+        <div class="card-body">
+            <p>
+                @if (Model.Any(e => e.HasCurrentRequest))
+                {
+                    <div class="alert warning">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <strong>Note that</strong> You have one Request In processing.
+                    </div>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-action="Create">
+                        <i class="fas fa-plus"></i>
+                        Create New
+                    </a>
+                }
+
+            </p>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.WorkMobile)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicalSpeciality)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.WorkAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.WorkPhone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Notes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.WorkEmail)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkMobile)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicalSpeciality)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @if (item.Status != PetCommunity.Data.Enums.DoctorRequestStatus.Approved && item.Status != PetCommunity.Data.Enums.DoctorRequestStatus.Reject)
+                            {
+                            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit " aria-hidden="true"></i></a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            }
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+       </div>
+    </div>
+
+
+        <style>
+            .alert {
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+            }
+
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+                .closebtn:hover {
+                    color: black;
+                }
+
+            .alert.success {
+                background-color: #04AA6D;
+            }
+
+            .alert.info {
+                background-color: #2196F3;
+            }
+
+            .alert.warning {
+                background-color: #ff9800;
+            }
+        </style>
+
+
+
+        @*<div class="text-center">
+                <h1 class="display-4">Welcome</h1>
+                <div id="articleList"></div>
+            </div>*@
+        <script>
+            function ready() {
+            }
+            //random number between 1 and 100 for demo
+            var userId = Math.floor((Math.random() * 100) + 1);
+            document.addEventListener("DOMContentLoaded", ready);
+        </script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+        @*<script src="~/lib/signalr/jquery.signalR.js"></script>*@
+        <script src="~/js/notification.js"></script>

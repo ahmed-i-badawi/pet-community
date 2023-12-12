@@ -1,0 +1,73 @@
+﻿@model PetCommunity.Models.DocktorCreationRequest
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+<form>
+
+    <div>
+        <h4>DocktorCreationRequest</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkMobile)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WorkMobile)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MedicalSpeciality)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MedicalSpeciality)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkAddress)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WorkAddress)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkPhone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WorkPhone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WorkEmail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WorkEmail)
+            </dd>x`
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User.FullName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.User.FullName)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @if (Model.HasCurrentRequest)
+        {
+            <div class="form-group">
+                <button asp-controller="ApproveDoctorRequests" asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success">Approve</button>
+                <button asp-controller="ApproveDoctorRequests" asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-danger">Reject</button>
+            </div>
+        }
+
+
+        <a class="btn btn-primary" asp-action="Index">  Back </a>
+
+    </div>
+
+</form>

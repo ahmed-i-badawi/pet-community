@@ -1,0 +1,64 @@
+﻿@model PetCommunity.Models.DocktorCreationRequest
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>DocktorCreationRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="WorkMobile" class="control-label"></label>
+                <input asp-for="WorkMobile" class="form-control" />
+                <span asp-validation-for="WorkMobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MedicalSpeciality" class="control-label"></label>
+                <input asp-for="MedicalSpeciality" class="form-control" />
+                <span asp-validation-for="MedicalSpeciality" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkAddress" class="control-label"></label>
+                <input asp-for="WorkAddress" class="form-control" />
+                <span asp-validation-for="WorkAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkPhone" class="control-label"></label>
+                <input asp-for="WorkPhone" class="form-control" />
+                <span asp-validation-for="WorkPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkEmail" class="control-label"></label>
+                <input asp-for="WorkEmail" class="form-control" />
+                <span asp-validation-for="WorkEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.FullName" class="control-label"></label>
+                <label asp-for="User.FullName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="Index">  Back </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

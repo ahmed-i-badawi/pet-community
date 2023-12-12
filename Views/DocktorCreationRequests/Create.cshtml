@@ -1,0 +1,79 @@
+﻿@model PetCommunity.ViewModel.DocktorCreationRequestViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container">
+    <br />
+    <div class="card border-success mb-3" >
+        <div class="card-header">Doctor Request</div>
+        <div class="card-body">
+           
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="WorkMobile" class="control-label"></label>
+                                <input asp-for="WorkMobile" class="form-control" />
+                                <span asp-validation-for="WorkMobile" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label asp-for="MedicalSpeciality" class="control-label"></label>
+                                <input asp-for="MedicalSpeciality" class="form-control" />
+                                <span asp-validation-for="MedicalSpeciality" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="WorkAddress" class="control-label"></label>
+                                <input asp-for="WorkAddress" class="form-control" />
+                                <span asp-validation-for="WorkAddress" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="WorkPhone" class="control-label"></label>
+                                <input asp-for="WorkPhone" class="form-control" />
+                                <span asp-validation-for="WorkPhone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="WorkEmail" class="control-label"></label>
+                                <input asp-for="WorkEmail" class="form-control" />
+                                <span asp-validation-for="WorkEmail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="File" class="control-label">Your Image</label>
+                                <input type="file" name="File" asp-for="File" class="form-control" />
+                                <span asp-validation-for="File" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label asp-for="Notes" class="control-label"></label>
+                                <textarea rows="4" asp-for="Notes" class="form-control"></textarea>
+                                <span asp-validation-for="Notes" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Apply" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
